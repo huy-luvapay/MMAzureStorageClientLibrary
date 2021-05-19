@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'MMAzureStorageClientLibrary'
-  s.version          = '0.1.0'
+  s.version          = '0.1.1'
   s.summary          = 'A short description of MMAzureStorageClientLibrary.'
 
 # This description is used to generate tags and improve search results.
@@ -37,11 +37,11 @@ TODO: Add long description of the pod here.
   s.requires_arc = true
   
   s.resources = [
-    'MMAzureStorageClientLibrary/Assets/**/*.png',
+    #'MMAzureStorageClientLibrary/Assets/**/*.png',
     'MMAzureStorageClientLibrary/Classes/**/*.bundle',
     'MMAzureStorageClientLibrary/Classes/**/*.xib',
     'MMAzureStorageClientLibrary/Classes/**/*.storyboard',
-    "MMAzureStorageClientLibrary/Assets/**/*.lproj"
+    #"MMAzureStorageClientLibrary/Assets/**/*.lproj"
   ]
   
 end
