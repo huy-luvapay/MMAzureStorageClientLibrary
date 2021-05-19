@@ -1,0 +1,6 @@
+framework module MMAzureStorageClientLibrary {
+  umbrella header "MMAzureStorageClientLibrary-umbrella.h"
+
+  export *
+  module * { export * }
+}

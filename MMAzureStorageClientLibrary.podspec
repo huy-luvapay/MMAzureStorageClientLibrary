@@ -21,22 +21,27 @@ Pod::Spec.new do |s|
 TODO: Add long description of the pod here.
                        DESC
 
-  s.homepage         = 'https://github.com/huy-luvapay/MMAzureStorageClientLibrary'
+  s.homepage         = 'https://github.com/huy-luvapay/MMAzureStorageClientLibrary.git'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'huy-luvapay' => 'huy.van@epapersmart.com' }
   s.source           = { :git => 'https://github.com/huy-luvapay/MMAzureStorageClientLibrary.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
-
-  s.ios.deployment_target = '9.0'
-
-  s.source_files = 'MMAzureStorageClientLibrary/Classes/**/*'
   
-  # s.resource_bundles = {
-  #   'MMAzureStorageClientLibrary' => ['MMAzureStorageClientLibrary/Assets/*.png']
-  # }
+  s.ios.deployment_target = '10.0'
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.swift_version = '5.0'
+
+  s.source_files = 'MMAzureStorageClientLibrary/Classes/**/*.{h,m,mm,swift}'
+  
+  s.requires_arc = true
+  
+  s.resources = [
+    'MMAzureStorageClientLibrary/Assets/**/*.png',
+    'MMAzureStorageClientLibrary/Classes/**/*.bundle',
+    'MMAzureStorageClientLibrary/Classes/**/*.xib',
+    'MMAzureStorageClientLibrary/Classes/**/*.storyboard',
+    "MMAzureStorageClientLibrary/Assets/**/*.lproj"
+  ]
+  
 end

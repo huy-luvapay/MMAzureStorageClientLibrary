@@ -1,0 +1,16 @@
+PODS:
+  - MMAzureStorageClientLibrary (0.1.0)
+
+DEPENDENCIES:
+  - MMAzureStorageClientLibrary (from `../`)
+
+EXTERNAL SOURCES:
+  MMAzureStorageClientLibrary:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  MMAzureStorageClientLibrary: a89bfb1f45656a65cc93a34dc0ad9f88a066ab28
+
+PODFILE CHECKSUM: 996f1fd21828687d4490601171cb52edb3e6dfa5
+
+COCOAPODS: 1.10.0
