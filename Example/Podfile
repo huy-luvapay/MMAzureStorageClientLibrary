@@ -1,0 +1,13 @@
+use_frameworks!
+
+platform :ios, '9.0'
+
+target 'MMAzureStorageClientLibrary_Example' do
+  pod 'MMAzureStorageClientLibrary', :path => '../'
+
+  target 'MMAzureStorageClientLibrary_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
