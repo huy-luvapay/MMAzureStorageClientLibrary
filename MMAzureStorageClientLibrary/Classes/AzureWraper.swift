@@ -80,10 +80,30 @@ internal extension URL {
         self.operationContextCollection.removeAll()
     }
     
+    
+    private let backgroundSyncronizeDataQueue = DispatchQueue(label: "AzureWraper")
+    
+    private let operationContext = AZSOperationContext()
+    
+    private var _totalBytesSentDict = [String: Double]()
+    private var totalBytesSentDict: [String: Double] {
+        set (newValue) {
+            backgroundSyncronizeDataQueue.sync() {
+                self._totalBytesSentDict = newValue
+            }
+        }
+        get {
+            return backgroundSyncronizeDataQueue.sync {
+                self._totalBytesSentDict
+            }
+        }
+    }
+    
     //Upload to Azure Blob Storage with help of SAS
     @objc public func uploadBlobSAS(id: String? = nil, linkSAS: String, blockname: String, fromfile: String, progressHandler: @escaping (Double) -> Void, completion: ((String, Error?) -> Void)?, cancelRequest: ((String, Error?) -> Void)? = nil) {
         if let url = URL(string: linkSAS) {
             var errorBlockBlob: NSError?
+            
             let blockBlob = AZSCloudBlockBlob(url: url, error: &errorBlockBlob)
             if let errorBlockBlob = errorBlockBlob {
                 completion?(linkSAS, errorBlockBlob)
@@ -91,10 +111,9 @@ internal extension URL {
                 if let stream = InputStream(fileAtPath: fromfile) {
                     do {
                         let size = try Double((FileManager.default.attributesOfItem(atPath: fromfile) as NSDictionary).fileSize())
-                        let operationContext = AZSOperationContext()
-                        var totalBytesSentDict = [String: Double]()
                         var _totalBytesSent: Double = 0
-                        operationContext.didSendBodyData = { (task, bytesSent, totalBytesSent, totalBytesExpectedToSend) in
+                        operationContext.didSendBodyData = {[weak self] (task, bytesSent, totalBytesSent, totalBytesExpectedToSend) in
+                            guard let `self` = self else { return }
                             _totalBytesSent = _totalBytesSent + Double(totalBytesSent)
                             /*
                             if let blobUploadHelper = stream.delegate as? AZSBlobUploadHelper {
@@ -103,10 +122,10 @@ internal extension URL {
                             */
                             
                             if let dict = task.currentRequest?.url?.getKeyValues(), let blockid = dict["blockid"] {
-                                totalBytesSentDict[blockid] = Double(totalBytesSent)
+                                self.totalBytesSentDict[blockid] = Double(totalBytesSent)
                                 //print("totalBytesSentDict: \(totalBytesSentDict)")
                                 //print("total: \(totalBytesSentDict.total)")
-                                let fractionCompleted = totalBytesSentDict.total / size
+                                let fractionCompleted = self.totalBytesSentDict.total / size
                                 DispatchQueue.main.async {
                                     progressHandler(fractionCompleted)
                                 }

@@ -65,7 +65,7 @@
 #import "AZSStorageUri.h"
 #import "AZSULLRange.h"
 #import "AZSUriQueryBuilder.h"
-#import "AZSUtil.h"
+//#import "AZSUtil.h"
 
 FOUNDATION_EXPORT double MMAzureStorageClientLibraryVersionNumber;
 FOUNDATION_EXPORT const unsigned char MMAzureStorageClientLibraryVersionString[];
